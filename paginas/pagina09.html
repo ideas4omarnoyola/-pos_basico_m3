@@ -405,9 +405,7 @@
 
         // Audios------------------------------------------------------
         const audio = [
-            new Audio('../audios/PROSA_ONB_ACLARACIONES_POS_M3_09_01.mp3'),
-            new Audio('../audios/PROSA_ONB_ACLARACIONES_POS_M3_09_02.mp3'),
-            new Audio('../audios/PROSA_ONB_ACLARACIONES_POS_M3_09_03.mp3'),
+            new Audio('../audios/PROSA_ONB_ACLARACIONES_POS_M3_09_01.mp3')
         ]
 
         // Al cargarse la página
@@ -417,34 +415,15 @@
         });
 
         function iniciarContenido(){
-            aplicacion.reproducirAudio(audio[0], locutar1, 1);
+            aplicacion.reproducirAudio(audio[0], dialogos, 1);
             animacionEntrada(back, 'default', 1, 1);
-            animacionEntrada(robot, 'izquierda-derecha', 1, 1);           
-            
+            animacionEntrada(robot, 'default', 1, 1);
+            animacionEntrada(d1, 'default', 1, 1);           
+            animacionEntrada(d2, 'derecha-izquierda', 1, 1);
 
             setTimeout(()=>{
                 flotar(robot, 'i');
                 hablar(robot, 'i');
-            }, 1000);
-        }
-
-        function locutar1() {  
-            aplicacion.reproducirAudio(audio[1], locutar2, 1);            
-            animacionEntrada(d1, 'derecha-izquierda', 1, 1);
-            
-            pausarHablar();
-            setTimeout(()=>{
-                reanudarHablar();
-            }, 1000);
-        }
-
-        function locutar2() {  
-            aplicacion.reproducirAudio(audio[2], dialogos, 1);            
-            animacionEntrada(d2, 'derecha-izquierda', 1, 1);
-            
-            pausarHablar();
-            setTimeout(()=>{
-                reanudarHablar();
             }, 1000);
         }
 

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página 04</title>
+    <title>Página 05</title>
 
     <!-- Estilos -->
     <link rel="stylesheet" href="../css/estilos.css">
@@ -384,10 +384,13 @@
           </g>
         </g>
       </g>
-    </svg>       
+    </svg>                      
     
     <img class="elementos" id="d1" src="../img/pagina04/d1.png" data-posX="0" data-posY="0" alt="">
-    <img class="elementos" id="tabla" src="../img/pagina04/tabla.png" data-posX="0" data-posY="0" alt="">
+    <img class="elementos infos" id="info1" src="../img/pagina04/info1.png" data-posX="0" data-posY="0" alt="">
+    <img class="elementos infos" id="info2" src="../img/pagina04/info2.png" data-posX="0" data-posY="0" alt="">
+    <img class="elementos infos" id="info3" src="../img/pagina04/info3.png" data-posX="0" data-posY="0" alt="">
+    <img class="elementos infos" id="info4" src="../img/pagina04/info4.png" data-posX="0" data-posY="0" alt="">
 
     <!-- Script de la página -->
     <script>
@@ -396,47 +399,50 @@
         let aplicacion = parent;
 
         const back = $('#back');
-        const robot = $('#robot');
         const d1 = $('#d1');
-        const tabla = $('#tabla');
+        const robot = $('#robot');
+        const info1 = $('#info1');
+        const info2 = $('#info2');
+        const info3 = $('#info3');
+        const info4 = $('#info4');
+        const infos = $('.infos');
+
+        const informacion = [info1, info2, info3, info4];
+
+        let indexInfo = 0;
+        let delay = 9.5;
         
 
         // Audios------------------------------------------------------
         const audio = [
-            new Audio('../audios/PROSA_ONB_ACLARACIONES_POS_M3_04_01.mp3'),
-            new Audio('../audios/PROSA_ONB_ACLARACIONES_POS_M3_04_02.mp3'),
+            new Audio('../audios/PROSA_ONB_ACLARACIONES_POS_M3_04_01.mp3')
         ]
 
         // Al cargarse la página
         $(window).on("load", function(){
             redimensionarElementos();
-            aplicacion.activarBotonAtras();
             aplicacion.cargando(iniciarContenido);
         });
 
         function iniciarContenido(){
-            aplicacion.reproducirAudio(audio[0], locutarDialogo, 1);
+            aplicacion.reproducirAudio(audio[0], final, 2);
             animacionEntrada(back, 'default', 1, 1);
             animacionEntrada(robot, 'izquierda-derecha', 1, 1);
+            animacionEntrada(d1, 'derecha-izquierda', 1, 1);
+
+            infos.each(function(){
+                delay = delay + 1;
+                animacionEntrada($(this), 'default', 1, delay);
+            });
 
             setTimeout(()=>{
                 flotar(robot, 'i');
                 hablar(robot, 'i');
-            }, 1000);
+            }, 2000);
         }
 
-        function locutarDialogo(){
-            aplicacion.reproducirAudio(audio[1], dialogos, 1);
-            animacionEntrada(d1, 'derecha-izquierda', 1);
-
-            pausarHablar();
-            setTimeout(()=>{
-                reanudarHablar();
-            }, 1000);
-        }
-
-        function dialogos(){            
-            animacionEntrada(tabla, 'default', 1, 1);
+        function final(){
+            pararHablar();
             aplicacion.terminaPantalla();
         }
 

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página 06</title>
+    <title>Página 07</title>
 
     <!-- Estilos -->
     <link rel="stylesheet" href="../css/estilos.css">
@@ -403,8 +403,7 @@
 
         // Audios------------------------------------------------------
         const audio = [
-            new Audio('../audios/PROSA_ONB_ACLARACIONES_POS_M3_06_01.mp3'),
-            new Audio('../audios/PROSA_ONB_ACLARACIONES_POS_M3_06_02.mp3'),
+            new Audio('../audios/PROSA_ONB_ACLARACIONES_POS_M3_06_01.mp3')
         ]
 
         // Al cargarse la página
@@ -414,24 +413,15 @@
         });
 
         function iniciarContenido(){
-            aplicacion.reproducirAudio(audio[0], locutarDialogo, 1);
+            aplicacion.reproducirAudio(audio[0], dialogos, 1);
             animacionEntrada(back, 'default', 1, 1);
             animacionEntrada(robot, 'izquierda-derecha', 1, 1);
+            animacionEntrada(d1, 'derecha-izquierda', 1, 1);            
+            animacionEntrada(tabla, 'default', 1, 2);
 
             setTimeout(()=>{
                 flotar(robot, 'i');
                 hablar(robot, 'i');
-            }, 1000);
-        }
-
-        function locutarDialogo(){
-            aplicacion.reproducirAudio(audio[1], dialogos, 1);
-            animacionEntrada(d1, 'derecha-izquierda', 1);            
-            animacionEntrada(tabla, 'default', 1, 1);
-
-            pausarHablar();
-            setTimeout(()=>{
-                reanudarHablar();
             }, 1000);
         }
 

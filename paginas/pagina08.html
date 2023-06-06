@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página 08</title>
+    <title>Página 07</title>
 
     <!-- Estilos -->
     <link rel="stylesheet" href="../css/estilos.css">
@@ -22,7 +22,7 @@
 
 </head>
 <body class="pagina">
-    <img class="elementos" id="texto" src="../img/pagina08/texto.png" data-posX="0" data-posY="0" alt="">
+    <img class="elementos" id="back" src="../img/pagina08/fondo.png" data-posX="0" data-posY="0" alt="">
 
     <svg class="elementos" id="robot" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1024" height="620" viewBox="0 0 1024 620">
         <defs>
@@ -384,17 +384,11 @@
             </g>
           </g>
         </g>
-    </svg>      
-
-    <img class="elementos" id="d1" src="../img/pagina08/d1.png" data-posX="0" data-posY="0" alt="">
-    <img class="elementos" id="instrucciones" src="../img/pagina08/instrucciones.png" data-posX="0" data-posY="0" alt="">
-
-    <img class="elementos infos" id="info1" src="../img/pagina08/info1.png" data-posX="0" data-posY="0" alt="">
-    <img class="elementos infos" id="info2" src="../img/pagina08/info2.png" data-posX="0" data-posY="0" alt="">
+    </svg>           
     
-    <img class="elementos botones" id="boton1" src="../img/pagina08/boton1.png" data-posX="435" data-posY="148" alt="">
-    <img class="elementos botones" id="boton2" src="../img/pagina08/boton2.png" data-posX="435" data-posY="338" alt="">
-
+    <img class="elementos" id="d1" src="../img/pagina08/d1.png" data-posX="0" data-posY="0" alt="">
+    <img class="elementos" id="d2" src="../img/pagina08/d2.png" data-posX="0" data-posY="0" alt="">
+    <img class="elementos" id="tabla" src="../img/pagina08/tabla.png" data-posX="0" data-posY="0" alt="">
 
     <!-- Script de la página -->
     <script>
@@ -402,21 +396,11 @@
         // Variable----------------------------------------------------
         let aplicacion = parent;
 
-        const texto = $('#texto');
+        const back = $('#back');
         const robot = $('#robot');
-        const instrucciones = $('#instrucciones');
         const d1 = $('#d1');
-        const boton1 = $('#boton1');
-        const boton2 = $('#boton2');
-        const info1 = $('#info1');
-        const info2 = $('#info2');
-
-        const botones = $('.botones');
-
-        const informacion = [info1, info2];
-        const btns = [boton1, boton2];
-
-        let indexInfo = 0;
+        const d2 = $('#d2');
+        const tabla = $('#tabla');
         
 
         // Audios------------------------------------------------------
@@ -426,11 +410,6 @@
             new Audio('../audios/PROSA_ONB_ACLARACIONES_POS_M3_08_03.mp3'),
         ]
 
-        const audioBotones = [
-            new Audio('../audios/PROSA_ONB_ACLARACIONES_POS_M3_08_04.mp3'),
-            new Audio('../audios/PROSA_ONB_ACLARACIONES_POS_M3_08_05.mp3'),
-        ]
-
         // Al cargarse la página
         $(window).on("load", function(){
             redimensionarElementos();
@@ -438,11 +417,10 @@
         });
 
         function iniciarContenido(){
-            aplicacion.reproducirAudio(audio[0], locutarDialogo, 1);
-            animacionEntrada(texto, 'default', 1, 1);
-            animacionEntrada(robot, 'default', 1, 1);
-            animacionEntrada(boton1, 'default', 1, 4);
-            animacionEntrada(boton2, 'default', 1, 5);
+            aplicacion.reproducirAudio(audio[0], locutar1, 1);
+            animacionEntrada(back, 'default', 1, 1);
+            animacionEntrada(robot, 'izquierda-derecha', 1, 1);           
+            
 
             setTimeout(()=>{
                 flotar(robot, 'i');
@@ -450,54 +428,30 @@
             }, 1000);
         }
 
-        function locutarDialogo(){
-            aplicacion.reproducirAudio(audio[1], dialogo, 1);
-            animacionEntrada(d1, 'default', 1, 1);
-
+        function locutar1() {  
+            aplicacion.reproducirAudio(audio[1], locutar2, 1);            
+            animacionEntrada(d1, 'derecha-izquierda', 1, 1);
+            
             pausarHablar();
             setTimeout(()=>{
                 reanudarHablar();
             }, 1000);
         }
 
-        function dialogo(){
-            aplicacion.reproducirAudio(audio[2], botonera, 1);
-            animacionEntrada(instrucciones, 'default', 1, 1);
-
+        function locutar2() {  
+            aplicacion.reproducirAudio(audio[2], dialogos, 1);            
+            animacionEntrada(d2, 'derecha-izquierda', 1, 1);
+            
             pausarHablar();
             setTimeout(()=>{
                 reanudarHablar();
             }, 1000);
         }
 
-        function botonera(){
-            pausarHablar();
-            parpadear(btns[indexInfo]);
-        }
-
-        botones.each(function(){
-            $(this).click(function () {  
-                if($(this).css('cursor') == 'pointer'){
-                    aplicacion.reproducirAudio(audioBotones[indexInfo], siguiente, 1);
-                    animacionEntrada(informacion[indexInfo], 'default', 1);
-                    dejarParpadear($(this));
-
-                    setTimeout(()=>{
-                        reanudarHablar();
-                    }, 1000);
-                }
-            });
-        });
-
-        function siguiente(){
-            indexInfo++;
-            if(indexInfo < informacion.length){
-                botonera();
-            }
-            else{
-                pararHablar();
-                aplicacion.terminaPantalla();
-            }
+        function dialogos(){
+            pararHablar();
+            animacionEntrada(tabla, 'default', 1, 1);
+            aplicacion.terminaPantalla();
         }
 
     </script>
